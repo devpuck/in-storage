@@ -1,0 +1,83 @@
+package ${cfg.serviceImplPackage};
+
+import com.xac.core.constant.CoreConstant;
+import ${cfg.entityPackage}.${entity}Entity;
+import ${cfg.mapperPackage}.${table.mapperName};
+import ${cfg.servicePackage}.${table.serviceName};
+import ${cfg.queryParamPath};
+import ${cfg.queryBoPath};
+import ${superServiceImplClassPackage};
+import ${cfg.paging};
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import java.io.Serializable;
+
+
+/**
+ * <pre>
+ * $!{table.comment} 服务实现类
+ * </pre>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Slf4j
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}Entity>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends BaseServiceImpl<${table.mapperName}, ${entity}Entity> implements ${table.serviceName} {
+
+    @Autowired
+    private ${table.mapperName} ${cfg.mapperObjectName};
+#if(${cfg.generatorStrategy} != 'SIMPLE')
+#if(${cfg.generatorStrategy} == 'ALL')
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean save${entity}(${entity}Bo ${cfg.entityObjectName}) {
+        ${entity}Entity entity = new ${entity}Entity();
+        BeanUtils.copyProperties(${cfg.entityObjectName} , entity);
+        return super.save(entity);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean update${entity}(${entity}Bo ${cfg.entityObjectName}) {
+        ${entity}Entity entity = new ${entity}Entity();
+        BeanUtils.copyProperties(${cfg.entityObjectName} , entity);
+        return super.updateById(entity);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean delete${entity}(Long id) {
+        return super.removeById(id);
+    }
+#end
+
+    @Override
+    public ${entity}Bo get${entity}ById(Serializable id) {
+        return ${cfg.mapperObjectName}.get${entity}ById(id);
+    }
+
+    @Override
+    public Paging<${entity}Bo> get${entity}PageList(${entity}QueryParam ${cfg.entityObjectName}QueryParam) {
+        Page page = setPageParam(${cfg.entityObjectName}QueryParam, OrderItem.desc(CoreConstant.CREATED_DATE));
+        IPage<${entity}Bo> iPage = ${cfg.mapperObjectName}.get${entity}PageList(page, ${cfg.entityObjectName}QueryParam);
+        return new Paging(iPage);
+    }
+#end
+
+}
+#end

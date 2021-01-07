@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wms.mapper.instorage.InWarehouseBillMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wms.model.entity.InWarehouseBillEntity">
+        <id column="ID" property="id" />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_DATE" property="createdDate" />
+    <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+    <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+    <result column="DELETED_BY" property="deletedBy" />
+    <result column="DELETED_DATE" property="deletedDate" />
+    <result column="IS_DELETED" property="isDeleted" />
+        <result column="REQUIREMENT_ID" property="requirementId" />
+        <result column="CONTRACT_CODE" property="contractCode" />
+        <result column="SYSTEM_FROM" property="systemFrom" />
+        <result column="BILL_CODE" property="billCode" />
+        <result column="WAREHOUSE_CODE" property="warehouseCode" />
+        <result column="WORK_CODE" property="workCode" />
+        <result column="DEAL_CODE" property="dealCode" />
+        <result column="IN_PERSON" property="inPerson" />
+        <result column="IN_DEPT" property="inDept" />
+        <result column="IN_OPERATOR" property="inOperator" />
+        <result column="IN_OPERATOR_DEPT" property="inOperatorDept" />
+        <result column="IN_OPERATOR_DATE" property="inOperatorDate" />
+        <result column="STATUS" property="status" />
+        <result column="VERSION" property="version" />
+        <result column="NOTE" property="note" />
+    </resultMap>
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BoResultMap" type="com.wms.model.bo.instorage.InWarehouseBillBo">
+        <id column="ID" property="id" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_DATE" property="createdDate" />
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+        <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+        <result column="DELETED_BY" property="deletedBy" />
+        <result column="DELETED_DATE" property="deletedDate" />
+        <result column="IS_DELETED" property="isDeleted" />
+                <result column="REQUIREMENT_ID" property="requirementId" />
+                <result column="CONTRACT_CODE" property="contractCode" />
+                <result column="SYSTEM_FROM" property="systemFrom" />
+                <result column="BILL_CODE" property="billCode" />
+                <result column="WAREHOUSE_CODE" property="warehouseCode" />
+                <result column="WORK_CODE" property="workCode" />
+                <result column="DEAL_CODE" property="dealCode" />
+                <result column="IN_PERSON" property="inPerson" />
+                <result column="IN_DEPT" property="inDept" />
+                <result column="IN_OPERATOR" property="inOperator" />
+                <result column="IN_OPERATOR_DEPT" property="inOperatorDept" />
+                <result column="IN_OPERATOR_DATE" property="inOperatorDate" />
+                <result column="STATUS" property="status" />
+                <result column="VERSION" property="version" />
+                <result column="NOTE" property="note" />
+        </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CREATED_BY,
+        CREATED_DATE,
+        LAST_UPDATED_BY,
+        LAST_UPDATED_DATE,
+        DELETED_BY,
+        DELETED_DATE,
+        IS_DELETED,
+        ID, REQUIREMENT_ID, CONTRACT_CODE,SYSTEM_FROM, BILL_CODE, WAREHOUSE_CODE, WORK_CODE, DEAL_CODE, IN_PERSON, IN_DEPT, IN_OPERATOR, IN_OPERATOR_DEPT, IN_OPERATOR_DATE, STATUS, VERSION, NOTE
+    </sql>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Left_Column_List">
+        a.CREATED_BY,
+        a.CREATED_DATE,
+        a.LAST_UPDATED_BY,
+        a.LAST_UPDATED_DATE,
+        a.DELETED_BY,
+        a.DELETED_DATE,
+        a.IS_DELETED,
+        a.ID, a.REQUIREMENT_ID, a.CONTRACT_CODE,a.SYSTEM_FROM, a.BILL_CODE, a.WAREHOUSE_CODE, a.WORK_CODE, a.DEAL_CODE, a.IN_PERSON, a.IN_DEPT, a.IN_OPERATOR, a.IN_OPERATOR_DEPT, a.IN_OPERATOR_DATE, a.STATUS, a.VERSION, a.NOTE
+    </sql>
+
+    <select id="getInWarehouseBillById" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from WMS_IN_WAREHOUSE_BILL where id = #{id}
+    </select>
+
+    <select id="getInWarehouseBillPageList" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from WMS_IN_WAREHOUSE_BILL
+    </select>
+    <select id="queryInWarehouseBillIDByRequirementID" resultType="java.lang.String">
+        select ID from WMS_IN_WAREHOUSE_BILL where REQUIREMENT_ID= #{requirementID}
+    </select>
+    <select id="queryInWarehouseBillByProductionCode"
+            resultType="com.wms.model.bo.instorage.InWarehouseBillBo">
+        select
+        <include refid="Left_Column_List"/>
+        from WMS_IN_WAREHOUSE_BILL a left join WMS_IN_WAREHOUSE_BILL_SUB b on a.BILL_CODE=b.BILL_CODE where b.PRODUCTION_CODE=#{productionCode} and a.STATUS = #{billState} and a.IS_DELETED=0 and b.IS_DELETED=0
+    </select>
+
+
+</mapper>

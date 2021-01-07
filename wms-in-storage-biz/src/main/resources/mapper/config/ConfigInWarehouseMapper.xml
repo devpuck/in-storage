@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wms.mapper.config.ConfigInWarehouseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wms.model.entity.ConfigInWarehouseEntity">
+        <id column="ID" property="id" />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_DATE" property="createdDate" />
+    <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+    <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+    <result column="DELETED_BY" property="deletedBy" />
+    <result column="DELETED_DATE" property="deletedDate" />
+    <result column="IS_DELETED" property="isDeleted" />
+        <result column="CONFIG_CODE" property="configCode" />
+        <result column="WAREHOUSE_CODE" property="warehouseCode" />
+        <result column="WAREHOUSE_WORK_CODE" property="warehouseWorkCode" />
+        <result column="WAREHOUSE_DEAL_CODE" property="warehouseDealCode" />
+        <result column="PRODUCTION_STATE" property="productionState" />
+        <result column="NEED_QUALITY" property="needQuality" />
+        <result column="STATUS" property="status" />
+        <result column="VERSION" property="version" />
+    </resultMap>
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BoResultMap" type="com.wms.model.bo.config.ConfigInWarehouseBo">
+        <id column="ID" property="id" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_DATE" property="createdDate" />
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+        <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+        <result column="DELETED_BY" property="deletedBy" />
+        <result column="DELETED_DATE" property="deletedDate" />
+        <result column="IS_DELETED" property="isDeleted" />
+                <result column="CONFIG_CODE" property="configCode" />
+                <result column="WAREHOUSE_CODE" property="warehouseCode" />
+                <result column="WAREHOUSE_WORK_CODE" property="warehouseWorkCode" />
+                <result column="WAREHOUSE_DEAL_CODE" property="warehouseDealCode" />
+                <result column="PRODUCTION_STATE" property="productionState" />
+                <result column="NEED_QUALITY" property="needQuality" />
+                <result column="STATUS" property="status" />
+                <result column="VERSION" property="version" />
+        </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CREATED_BY,
+        CREATED_DATE,
+        LAST_UPDATED_BY,
+        LAST_UPDATED_DATE,
+        DELETED_BY,
+        DELETED_DATE,
+        IS_DELETED,
+        ID, CONFIG_CODE, WAREHOUSE_CODE, WAREHOUSE_WORK_CODE, WAREHOUSE_DEAL_CODE, PRODUCTION_STATE, NEED_QUALITY, STATUS, VERSION
+    </sql>
+
+    <select id="getConfigInWarehouseById" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CONFIG_IN_WAREHOUSE where id = #{id}
+    </select>
+
+    <select id="getConfigInWarehousePageList" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CONFIG_IN_WAREHOUSE
+    </select>
+
+</mapper>

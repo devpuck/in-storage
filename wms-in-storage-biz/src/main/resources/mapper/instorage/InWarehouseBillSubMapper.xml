@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wms.mapper.instorage.InWarehouseBillSubMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wms.model.entity.InWarehouseBillSubEntity">
+        <id column="ID" property="id" />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_DATE" property="createdDate" />
+    <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+    <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+    <result column="DELETED_BY" property="deletedBy" />
+    <result column="DELETED_DATE" property="deletedDate" />
+    <result column="IS_DELETED" property="isDeleted" />
+        <result column="BILL_CODE" property="billCode" />
+        <result column="REQUIREMENT_SUB_ID" property="requirementSubId" />
+        <result column="DISPATCH_CODE" property="dispatchCode" />
+        <result column="WAREHOUSE_CODE" property="warehouseCode" />
+        <result column="WAREHOUSE_LOCATION_CODE" property="warehouseLocationCode" />
+        <result column="CONTRACT_SUB_CODE" property="contractSubCode" />
+        <result column="PRODUCTION_CODE" property="productionCode" />
+        <result column="PRODUCTION_TYPE" property="productionType" />
+        <result column="IS_PARENT" property="isParent" />
+        <result column="PRODUCE_STATUS" property="produceStatus" />
+        <result column="PARENT_PRODUCTION_CODE" property="parentProductionCode" />
+        <result column="BRAND" property="brand" />
+        <result column="SPECIFICATIONS" property="specifications" />
+        <result column="PRODUCTION_LEVEL" property="productionLevel" />
+        <result column="TECHNICAL_CONDITIONS" property="technicalConditions" />
+        <result column="ADDITIONAL_TECHNICAL_CONDITIONS" property="additionalTechnicalConditions" />
+        <result column="DRAW_CODE" property="drawCode" />
+        <result column="QUALITY_CODE" property="qualityCode" />
+        <result column="PROJECT_CODE" property="projectCode" />
+        <result column="THREE_PERIOD_CODE" property="threePeriodCode" />
+        <result column="MANUFACTURE_DATE" property="manufactureDate" />
+        <result column="EXPIRATION_DATE" property="expirationDate" />
+        <result column="BATCH" property="batch" />
+        <result column="SPLYSOT_CODE" property="splysotCode" />
+        <result column="AIRCRAFT_CODE" property="aircraftCode" />
+        <result column="SORTIE_CODE" property="sortieCode" />
+        <result column="MODEL_CODE" property="modelCode" />
+        <result column="CONSTRUCTION_CODE" property="constructionCode" />
+        <result column="QUALITY_STATUS" property="qualityStatus" />
+        <result column="IS_CONSIGNMENT" property="isConsignment" />
+        <result column="CERTIFICATE_NO" property="certificateNo" />
+        <result column="SUPPLY_CERTIFICATE_NO" property="supplyCertificateNo" />
+        <result column="SUPPLIER_TYPE" property="supplierType" />
+        <result column="SUPPLIER_BY" property="supplierBy" />
+        <result column="QUANTITY" property="quantity" />
+        <result column="BUY_PRICE" property="buyPrice" />
+        <result column="BUY_PRICE_UNIT" property="buyPriceUnit" />
+        <result column="WEIGHT" property="weight" />
+        <result column="WEIGHT_UNIT" property="weightUnit" />
+        <result column="UNIT" property="unit" />
+        <result column="STATUS" property="status" />
+        <result column="RECEIVER_SYS_USER" property="receiverSysUser" />
+        <result column="RECEIVER_HR_DEPT" property="receiverHrDept" />
+        <result column="PRODUCTION_SIZE" property="productionSize" />
+        <result column="DETAILS" property="details" />
+        <result column="ATTRIBUTE1" property="attribute1" />
+        <result column="ATTRIBUTE2" property="attribute2" />
+        <result column="ATTRIBUTE3" property="attribute3" />
+        <result column="ATTRIBUTE4" property="attribute4" />
+        <result column="ATTRIBUTE5" property="attribute5" />
+        <result column="ATTRIBUTE6" property="attribute6" />
+        <result column="ATTRIBUTE7" property="attribute7" />
+        <result column="ATTRIBUTE8" property="attribute8" />
+        <result column="ATTRIBUTE9" property="attribute9" />
+        <result column="ATTRIBUTE10" property="attribute10" />
+        <result column="VERSION" property="version" />
+    </resultMap>
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BoResultMap" type="com.wms.model.bo.instorage.InWarehouseBillSubBo">
+        <id column="ID" property="id" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_DATE" property="createdDate" />
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" />
+        <result column="LAST_UPDATED_DATE" property="lastUpdatedDate" />
+        <result column="DELETED_BY" property="deletedBy" />
+        <result column="DELETED_DATE" property="deletedDate" />
+        <result column="IS_DELETED" property="isDeleted" />
+                <result column="BILL_CODE" property="billCode" />
+                <result column="REQUIREMENT_SUB_ID" property="requirementSubId" />
+                <result column="DISPATCH_CODE" property="dispatchCode" />
+                <result column="WAREHOUSE_CODE" property="warehouseCode" />
+                <result column="WAREHOUSE_LOCATION_CODE" property="warehouseLocationCode" />
+                <result column="CONTRACT_SUB_CODE" property="contractSubCode" />
+                <result column="PRODUCTION_CODE" property="productionCode" />
+                <result column="PRODUCTION_TYPE" property="productionType" />
+                <result column="IS_PARENT" property="isParent" />
+                <result column="PRODUCE_STATUS" property="produceStatus" />
+                <result column="PARENT_PRODUCTION_CODE" property="parentProductionCode" />
+                <result column="BRAND" property="brand" />
+                <result column="SPECIFICATIONS" property="specifications" />
+                <result column="PRODUCTION_LEVEL" property="productionLevel" />
+                <result column="TECHNICAL_CONDITIONS" property="technicalConditions" />
+                <result column="ADDITIONAL_TECHNICAL_CONDITIONS" property="additionalTechnicalConditions" />
+                <result column="DRAW_CODE" property="drawCode" />
+                <result column="QUALITY_CODE" property="qualityCode" />
+                <result column="PROJECT_CODE" property="projectCode" />
+                <result column="THREE_PERIOD_CODE" property="threePeriodCode" />
+                <result column="MANUFACTURE_DATE" property="manufactureDate" />
+                <result column="EXPIRATION_DATE" property="expirationDate" />
+                <result column="BATCH" property="batch" />
+                <result column="SPLYSOT_CODE" property="splysotCode" />
+                <result column="AIRCRAFT_CODE" property="aircraftCode" />
+                <result column="SORTIE_CODE" property="sortieCode" />
+                <result column="MODEL_CODE" property="modelCode" />
+                <result column="CONSTRUCTION_CODE" property="constructionCode" />
+                <result column="QUALITY_STATUS" property="qualityStatus" />
+                <result column="IS_CONSIGNMENT" property="isConsignment" />
+                <result column="CERTIFICATE_NO" property="certificateNo" />
+                <result column="SUPPLY_CERTIFICATE_NO" property="supplyCertificateNo" />
+                <result column="SUPPLIER_TYPE" property="supplierType" />
+                <result column="SUPPLIER_BY" property="supplierBy" />
+                <result column="QUANTITY" property="quantity" />
+                <result column="BUY_PRICE" property="buyPrice" />
+                <result column="BUY_PRICE_UNIT" property="buyPriceUnit" />
+                <result column="WEIGHT" property="weight" />
+                <result column="WEIGHT_UNIT" property="weightUnit" />
+                <result column="UNIT" property="unit" />
+                <result column="STATUS" property="status" />
+                <result column="RECEIVER_SYS_USER" property="receiverSysUser" />
+                <result column="RECEIVER_HR_DEPT" property="receiverHrDept" />
+                <result column="PRODUCTION_SIZE" property="productionSize" />
+                <result column="DETAILS" property="details" />
+                <result column="ATTRIBUTE1" property="attribute1" />
+                <result column="ATTRIBUTE2" property="attribute2" />
+                <result column="ATTRIBUTE3" property="attribute3" />
+                <result column="ATTRIBUTE4" property="attribute4" />
+                <result column="ATTRIBUTE5" property="attribute5" />
+                <result column="ATTRIBUTE6" property="attribute6" />
+                <result column="ATTRIBUTE7" property="attribute7" />
+                <result column="ATTRIBUTE8" property="attribute8" />
+                <result column="ATTRIBUTE9" property="attribute9" />
+                <result column="ATTRIBUTE10" property="attribute10" />
+                <result column="VERSION" property="version" />
+        </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CREATED_BY,
+        CREATED_DATE,
+        LAST_UPDATED_BY,
+        LAST_UPDATED_DATE,
+        DELETED_BY,
+        DELETED_DATE,
+        IS_DELETED,
+        ID, BILL_CODE, REQUIREMENT_SUB_ID, DISPATCH_CODE, WAREHOUSE_CODE,WAREHOUSE_LOCATION_CODE,CONTRACT_SUB_CODE, PRODUCTION_CODE, PRODUCTION_TYPE, IS_PARENT, PRODUCE_STATUS, PARENT_PRODUCTION_CODE, BRAND, SPECIFICATIONS, PRODUCTION_LEVEL, TECHNICAL_CONDITIONS, ADDITIONAL_TECHNICAL_CONDITIONS, DRAW_CODE, QUALITY_CODE, PROJECT_CODE, THREE_PERIOD_CODE, MANUFACTURE_DATE, EXPIRATION_DATE, BATCH, SPLYSOT_CODE, AIRCRAFT_CODE, SORTIE_CODE, MODEL_CODE, CONSTRUCTION_CODE, QUALITY_STATUS, IS_CONSIGNMENT, CERTIFICATE_NO, SUPPLY_CERTIFICATE_NO, SUPPLIER_TYPE, SUPPLIER_BY, QUANTITY, BUY_PRICE, BUY_PRICE_UNIT, WEIGHT, WEIGHT_UNIT, UNIT, STATUS, RECEIVER_SYS_USER, RECEIVER_HR_DEPT, PRODUCTION_SIZE, DETAILS, ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6, ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9, ATTRIBUTE10, VERSION
+    </sql>
+
+    <select id="getInWarehouseBillSubById" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from WMS_IN_WAREHOUSE_BILL_SUB where id = #{id}
+    </select>
+
+    <select id="getInWarehouseBillSubPageList" resultMap="BoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from WMS_IN_WAREHOUSE_BILL_SUB
+    </select>
+
+</mapper>

@@ -1,0 +1,48 @@
+package ${cfg.mapperPackage};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${superMapperClassPackage};
+import ${cfg.entityPackage}.${entity}Entity;
+import ${cfg.queryParamPath};
+import ${cfg.queryBoPath};
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.io.Serializable;
+
+/**
+ * <pre>
+ * $!{table.comment} Mapper 接口
+ * </pre>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.mapperName} : ${superMapperClass}<${entity}Entity>
+#else
+@Repository
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}Entity> {
+#if(${cfg.generatorStrategy})
+
+    /**
+     * 根据ID获取查询对象
+     *
+     * @param id
+     * @return
+     */
+    ${entity}Bo get${entity}ById(Serializable id);
+
+    /**
+     * 获取分页对象
+     *
+     * @param page
+     * @param ${cfg.entityObjectName}QueryParam
+     * @return
+     */
+    IPage<${entity}Bo> get${entity}PageList(@Param("page") Page page, @Param("param") ${entity}QueryParam ${cfg.entityObjectName}QueryParam);
+#end
+
+}
+#end
