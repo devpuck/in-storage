@@ -1,7 +1,7 @@
 package com.wms.controller;
 
 import com.wms.api.account.InWarehouseAccountVo;
-import com.wms.service.AccountService;
+import com.wms.service.InAccountService;
 import com.xac.core.api.ApiResult;
 import com.xac.core.api.BaseController;
 import io.swagger.annotations.Api;
@@ -24,11 +24,11 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/in/account")
 @Api("入库单据 API")
-public class AccountController extends BaseController
+public class InAccountController extends BaseController
 {
 
     @Autowired
-    AccountService service;
+    InAccountService service;
 
     /**
      * 添加入库单据

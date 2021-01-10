@@ -2,17 +2,14 @@ package com.wms.service.impl;
 
 import com.wms.account.AccountStatus;
 import com.wms.api.account.AccountResult;
-import com.wms.api.account.AccountVo;
 import com.wms.api.account.InWarehouseAccountVo;
-import com.wms.api.config.ConfigInWarehouseVo;
 import com.wms.api.instorage.InWarehouseBillSubVo;
 import com.wms.api.instorage.InWarehouseBillVo;
-import com.wms.errorcode.ErrorCode;
 import com.wms.model.bo.config.ConfigInWarehouseBo;
 import com.wms.model.bo.config.ConfigSpecInWarehouseBo;
 import com.wms.model.bo.instorage.InWarehouseBillBo;
 import com.wms.sdk.account.InAccountManager;
-import com.wms.service.AccountService;
+import com.wms.service.InAccountService;
 import com.wms.service.ConfigInWarehouseService;
 import com.wms.service.ConfigSpecInWarehouseService;
 import com.wms.thread.AfterAccountThread;
@@ -27,7 +24,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class AccountServiceImpl implements AccountService
+public class InAccountServiceImpl implements InAccountService
 {
     @Autowired
     private ConfigInWarehouseService configInWarehouseService;
