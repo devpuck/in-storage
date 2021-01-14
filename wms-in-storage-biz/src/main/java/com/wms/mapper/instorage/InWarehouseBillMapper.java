@@ -42,6 +42,21 @@ public interface InWarehouseBillMapper extends BaseMapper<InWarehouseBillEntity>
 
     public String queryInWarehouseBillIDByRequirementID(String requirementID);
 
-    List<InWarehouseBillBo> queryInWarehouseBillByProductionCode(String productionCode, String billState);
+    /**
+     * 根据单据编号查询单据ID
+     * @param billCode
+     * @return
+     */
+    public String queryInWarehouseBillIDByBillCode(String billCode);
+
+    List<InWarehouseBillBo> queryInWarehouseBillByProductionCode(String productionCode, String status);
+
+    /**
+     * 更新入库单据状态
+     * @param id
+     * @param status
+     * @return
+     */
+    public boolean updateInWarehouseBillStatus(Long id,String status);
 
 }

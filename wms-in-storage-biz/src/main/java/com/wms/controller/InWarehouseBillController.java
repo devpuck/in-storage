@@ -2,9 +2,7 @@ package com.wms.controller;
 
 import com.wms.api.instorage.InWarehouseBillSubVo;
 import com.wms.api.instorage.query.QueryInStorageAttribute;
-import com.wms.api.instorage.query.QueryInStorageAttributeByState;
-import com.wms.api.instorage.query.QueryInStorageSubAttribute;
-import com.wms.api.instorage.query.QueryInStorageSubAttributeByState;
+import com.wms.api.instorage.query.QueryInStorageAttributeByStatus;
 import com.wms.errorcode.ErrorCode;
 import com.wms.model.bo.instorage.InWarehouseBillSubBo;
 import com.wms.service.InWarehouseBillSubService;
@@ -59,11 +57,25 @@ public class InWarehouseBillController extends BaseController
     @ApiOperation(value = "添加InWarehouseBill对象", notes = "添加入库单据", response = ApiResult.class)
     public ApiResult<Boolean> addInWarehouseBill(@Valid @RequestBody InWarehouseBillVo inWarehouseBill) throws Exception
     {
-        String requirementID = inWarehouseBill.getRequirementId();
-        if(null != requirementID && (!"".equals(requirementID)))
+//        String requirementID = inWarehouseBill.getRequirementId();
+//        if(null != requirementID && (!"".equals(requirementID)))
+//        {
+//            String queryBillID = inWarehouseBillService.queryInWarehouseBillIDByRequirementID(requirementID);
+//            if(null != queryBillID)
+//            {
+//                ApiResult apiResult = new ApiResult();
+//                apiResult.setCode(ErrorCode.WAREHOUSE_REQUIREMENT_CODE_REPEAT);
+//                apiResult.setMsg(ErrorCode.WAREHOUSE_REQUIREMENT_CODE_REPEAT_MESSAGE);
+//                apiResult.setSuccess(false);
+//                return apiResult;
+//            }
+//        }
+
+        String billCode = inWarehouseBill.getBillCode();
+        if(null != billCode && (!"".equals(billCode)))
         {
-            String queryBillID = inWarehouseBillService.queryInWarehouseBillIDByRequirementID(requirementID);
-            if(null != queryBillID)
+            String billID = inWarehouseBillService.queryInWarehouseBillIDByBillCode(billCode);
+            if(null != billID)
             {
                 ApiResult apiResult = new ApiResult();
                 apiResult.setCode(ErrorCode.WAREHOUSE_REQUIREMENT_CODE_REPEAT);
@@ -189,9 +201,9 @@ public class InWarehouseBillController extends BaseController
      */
     @PostMapping("/query/queryByProduction")
     @ApiOperation(value = "查询入库单据", notes = "查询入库单据", response = InWarehouseBillVo.class)
-    public ApiResult<List<InWarehouseBillVo>> queryInWarehouseBillByProduction(@RequestParam String productionCode, @RequestParam String state)  throws Exception
+    public ApiResult<List<InWarehouseBillVo>> queryInWarehouseBillByProduction(@RequestParam String productionCode, @RequestParam String status)  throws Exception
     {
-        List<InWarehouseBillBo> inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBillByProductionCode(productionCode,state);
+        List<InWarehouseBillBo> inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBillByProductionCode(productionCode,status);
         List<InWarehouseBillVo> inWarehouseBillVoList = BeanListUtil.copyListProperties(inWarehouseBillBoList,InWarehouseBillVo.class);
         return ApiResult.ok(inWarehouseBillVoList);
     }
@@ -201,7 +213,7 @@ public class InWarehouseBillController extends BaseController
      */
     @PostMapping("/query/queryByWarehouseCode")
     @ApiOperation(value = "查询入库单据", notes = "查询入库单据", response = InWarehouseBillVo.class)
-    public ApiResult<List<InWarehouseBillVo>> queryInWarehouseBillByWarehouse(@RequestParam String warehouseCode, @RequestParam String state)  throws Exception
+    public ApiResult<List<InWarehouseBillVo>> queryInWarehouseBillByWarehouse(@RequestParam String warehouseCode, @RequestParam String status)  throws Exception
     {
         if(ErrorCode.OK!= CheckParameter.checkParameter(warehouseCode))
         {
@@ -210,12 +222,12 @@ public class InWarehouseBillController extends BaseController
 
         List<InWarehouseBillBo> inWarehouseBillBoList = null;
         List<InWarehouseBillVo> inWarehouseBillVoList = null;
-        if(null == state || "".equals(state))
+        if(null == status || "".equals(status))
         {
             inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBill(warehouseCode);
         }else
         {
-            inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBill(warehouseCode,state);
+            inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBill(warehouseCode,status);
         }
 
         inWarehouseBillVoList=BeanListUtil.copyListProperties(inWarehouseBillBoList,InWarehouseBillVo.class);
@@ -239,7 +251,7 @@ public class InWarehouseBillController extends BaseController
      */
     @PostMapping("/query/queryByCondition")
     @ApiOperation(value = "根据条件查询入库单据,根据入库单据状态查询", notes = "根据条件查询入库单据,根据入库单据状态查询", response = InWarehouseBillVo.class)
-    public ApiResult<List<InWarehouseBillVo>> queryUnfinishedInBill(@Valid @RequestBody QueryInStorageAttributeByState queryInStorageAttribute) throws Exception
+    public ApiResult<List<InWarehouseBillVo>> queryUnfinishedInBill(@Valid @RequestBody QueryInStorageAttributeByStatus queryInStorageAttribute) throws Exception
     {
         List<InWarehouseBillBo> inWarehouseBillBoList = inWarehouseBillService.queryInWarehouseBill(queryInStorageAttribute);
         List<InWarehouseBillVo> inWarehouseBillVoList = BeanListUtil.copyListProperties(inWarehouseBillBoList,InWarehouseBillVo.class);

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wms.api.account.AccountResult;
 import com.wms.api.account.InWarehouseAccountVo;
 import com.wms.api.config.ConfigAfterDealVo;
+import com.wms.api.instorage.InWarehouseResultVo;
 import com.wms.api.requirements.InRequirementVo;
 import com.wms.sdk.config.AfterDealManager;
 import com.wms.sdk.requirements.InRequirementManager;
@@ -42,22 +43,6 @@ public class AfterAccountThread implements Runnable
         accountResult.setRequirementID(requirementID);
         accountResult.setRequirementSubID(requirementSubID);
 
-//        InRequirementManager inRequirementManager = new InRequirementManager();
-//        InRequirementVo inRequirementVo = inRequirementManager.queryRequirementById(requirementID);
-//
-//        System.out.println("IIIIIiiiiiiiiiiiiii");
-//
-//
-//        String testURL = "http://localhost:8080/XacSdkTest/test";
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        HttpHeaders requestHeaders = new HttpHeaders();
-//        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<AccountResult> requestEntity = new HttpEntity<AccountResult>(accountResult, requestHeaders);
-//
-//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(testURL, requestEntity, String.class);
-
         AfterDealManager afterDealManager = new AfterDealManager();
         String systemFrom = inWarehouseAccountVo.getInWarehouseBillVo().getSystemFrom();
         String workCode = inWarehouseAccountVo.getInWarehouseBillVo().getWorkCode();
@@ -70,12 +55,17 @@ public class AfterAccountThread implements Runnable
             while(it.hasNext())
             {
                 ConfigAfterDealVo configAfterDealVo = it.next();
-
                 RestTemplate restTemplate = new RestTemplate();
+
+                InWarehouseResultVo inWarehouseResultVo = new InWarehouseResultVo();
+                inWarehouseResultVo.setAccountCertificateVoList(accountResult.getAccountCertificateVoList());
+                inWarehouseResultVo.setAccountVoList(accountResult.getAccountVoList());
+                inWarehouseResultVo.setInWarehouseBillSubVo(inWarehouseAccountVo.getInWarehouseBillSubVo());
+                inWarehouseResultVo.setInWarehouseBillVo(inWarehouseAccountVo.getInWarehouseBillVo());
 
                 HttpHeaders requestHeaders = new HttpHeaders();
                 requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<AccountResult> requestEntity = new HttpEntity<AccountResult>(accountResult, requestHeaders);
+                HttpEntity<InWarehouseResultVo> requestEntity = new HttpEntity<InWarehouseResultVo>(inWarehouseResultVo, requestHeaders);
 
                 ResponseEntity<String> responseEntity = restTemplate.postForEntity(configAfterDealVo.getRebackUrl(), requestEntity, String.class);
 //                ApiResult result = ApiResultUtil.jsonToBo(responseEntity.getBody(),ApiResult.class);
