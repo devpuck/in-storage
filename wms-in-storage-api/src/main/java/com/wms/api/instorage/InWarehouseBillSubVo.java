@@ -131,6 +131,8 @@ public class InWarehouseBillSubVo extends BaseVo implements Serializable {
 
     @ApiModelProperty(value = "数量")
     private BigDecimal quantity;
+    @ApiModelProperty(value = "数量")
+    private BigDecimal alreadyInQuantity;
 
     @ApiModelProperty(value = "采购价格,或者制造价格")
     private BigDecimal buyPrice;

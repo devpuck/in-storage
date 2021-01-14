@@ -1,7 +1,7 @@
 package com.wms.service;
 
 import com.wms.api.instorage.query.QueryInStorageAttribute;
-import com.wms.api.instorage.query.QueryInStorageAttributeByState;
+import com.wms.api.instorage.query.QueryInStorageAttributeByStatus;
 import com.wms.model.entity.InWarehouseBillEntity;
 import com.xac.core.service.BaseService;
 import com.wms.api.instorage.InWarehouseBillQueryParam;
@@ -76,6 +76,13 @@ public interface InWarehouseBillService extends BaseService<InWarehouseBillEntit
     String queryInWarehouseBillIDByRequirementID(String requirementID);
 
     /**
+     * 根据单据编号查询单据ID
+     * @param billCode
+     * @return
+     */
+    String queryInWarehouseBillIDByBillCode(String billCode);
+
+    /**
      * 根据需求单ID查询入库单
      *
      * @param requirementID
@@ -123,7 +130,7 @@ public interface InWarehouseBillService extends BaseService<InWarehouseBillEntit
      * @return
      * @throws Exception
      */
-    List<InWarehouseBillBo> queryInWarehouseBill(QueryInStorageAttributeByState queryAttribute) throws Exception;
+    List<InWarehouseBillBo> queryInWarehouseBill(QueryInStorageAttributeByStatus queryAttribute) throws Exception;
 
     /**
      * 根据查询条件查询未完成入库订单
@@ -132,5 +139,13 @@ public interface InWarehouseBillService extends BaseService<InWarehouseBillEntit
      * @throws Exception
      */
     List<InWarehouseBillBo> queryUnFinishedInWarehouseBill(QueryInStorageAttribute queryAttribute) throws Exception;
+
+    /**
+     * 更新入库单据状态
+     * @param id
+     * @param state
+     * @return
+     */
+    public boolean updateInWarehouseBillState(Long id,String state);
 
 }

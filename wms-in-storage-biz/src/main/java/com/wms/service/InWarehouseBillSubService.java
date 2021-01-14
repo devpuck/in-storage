@@ -9,6 +9,7 @@ import com.wms.model.bo.instorage.InWarehouseBillSubBo;
 import com.xac.core.api.Paging;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -87,6 +88,21 @@ public interface InWarehouseBillSubService extends BaseService<InWarehouseBillSu
      * @throws Exception
      */
     public List<InWarehouseBillSubBo> queryInWarehouseBillSubByCondition(QueryInStorageSubAttributeByState queryInStorageSubAttribute) throws Exception;
+
+    /**
+     * 增加入库单据已经入库数量
+     * @param id
+     * @param increaseQuantity
+     * @return
+     */
+    public boolean increaseBillQuantity(Long id, BigDecimal increaseQuantity);
+
+    /**
+     * 查询已经入库数量
+     * @param id
+     * @return
+     */
+    public BigDecimal queryAlreadyInQuantity(Long id);
 
 
 }

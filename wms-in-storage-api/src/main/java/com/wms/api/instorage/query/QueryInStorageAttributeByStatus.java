@@ -12,8 +12,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "InWarehouseBillVo对象", description = "入库单据查询参数")
-public class QueryInStorageAttributeByState extends QueryInStorageAttribute
+public class QueryInStorageAttributeByStatus extends QueryInStorageAttribute
 {
     @ApiModelProperty(value = "订单状态")
-    protected String billState;
+    protected String billStatus;
 }

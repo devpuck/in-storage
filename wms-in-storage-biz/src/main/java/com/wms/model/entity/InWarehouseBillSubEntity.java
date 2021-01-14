@@ -210,6 +210,11 @@ public class InWarehouseBillSubEntity extends BaseEntity {
     private BigDecimal quantity;
 
     /**
+     * 已经入库数量 ALREADY_IN_QUANTITY
+     */
+    private BigDecimal alreadyInQuantity;
+
+    /**
      * 采购价格,或者制造价格
      */
     private BigDecimal buyPrice;

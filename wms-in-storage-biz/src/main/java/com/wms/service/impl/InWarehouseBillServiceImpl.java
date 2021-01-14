@@ -2,7 +2,7 @@ package com.wms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wms.api.instorage.query.QueryInStorageAttribute;
-import com.wms.api.instorage.query.QueryInStorageAttributeByState;
+import com.wms.api.instorage.query.QueryInStorageAttributeByStatus;
 import com.wms.api.query.ExcludeEmptyQueryWrapper;
 import com.wms.bill.BillState;
 import com.wms.model.bo.instorage.InWarehouseBillSubBo;
@@ -123,6 +123,12 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
     }
 
     @Override
+    public String queryInWarehouseBillIDByBillCode(String billCode)
+    {
+        return inWarehouseBillMapper.queryInWarehouseBillIDByBillCode(billCode);
+    }
+
+    @Override
     public InWarehouseBillBo queryInWarehouseBillByRequirementID(String requirementID)  throws Exception
     {
         InWarehouseBillEntity inWarehouseBillEntity = inWarehouseBillMapper.selectOne(new QueryWrapper<InWarehouseBillEntity>().lambda()
@@ -158,9 +164,9 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
 
 
     @Override
-    public List<InWarehouseBillBo> queryInWarehouseBillByProductionCode(String productionCode, String billState) throws Exception
+    public List<InWarehouseBillBo> queryInWarehouseBillByProductionCode(String productionCode, String status) throws Exception
     {
-        List<InWarehouseBillBo> inWarehouseBillBoList = inWarehouseBillMapper.queryInWarehouseBillByProductionCode(productionCode,billState);
+        List<InWarehouseBillBo> inWarehouseBillBoList = inWarehouseBillMapper.queryInWarehouseBillByProductionCode(productionCode,status);
         if(null != inWarehouseBillBoList)
         {
             Iterator<InWarehouseBillBo> it = inWarehouseBillBoList.iterator();
@@ -189,11 +195,11 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
     }
 
     @Override
-    public List<InWarehouseBillBo> queryInWarehouseBill(String warehouseCode, String billState) throws Exception
+    public List<InWarehouseBillBo> queryInWarehouseBill(String warehouseCode, String status) throws Exception
     {
         List<InWarehouseBillEntity> inWarehouseBillEntityList = inWarehouseBillMapper.selectList(new QueryWrapper<InWarehouseBillEntity>().lambda()
                 .eq(InWarehouseBillEntity::getWarehouseCode, warehouseCode)
-                .eq(InWarehouseBillEntity::getStatus,billState));
+                .eq(InWarehouseBillEntity::getStatus,status));
 
         if (null == inWarehouseBillEntityList)
         {
@@ -203,7 +209,7 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
     }
 
     @Override
-    public List<InWarehouseBillBo> queryInWarehouseBill(QueryInStorageAttributeByState queryAttribute) throws Exception
+    public List<InWarehouseBillBo> queryInWarehouseBill(QueryInStorageAttributeByStatus queryAttribute) throws Exception
     {
 //        List<InWarehouseBillEntity> inWarehouseBillEntityList = inWarehouseBillMapper.selectList(new ExcludeEmptyQueryWrapper<InWarehouseBillEntity>().lambda()
 //                .eq(InWarehouseBillEntity::getWarehouseCode, queryAttribute.getWarehouseCode())
@@ -215,7 +221,7 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
 //                .eq(InWarehouseBillEntity::getInDept,queryAttribute.getInPerson()));
         List<InWarehouseBillEntity> inWarehouseBillEntityList = inWarehouseBillMapper.selectList(new ExcludeEmptyQueryWrapper<InWarehouseBillEntity>()
                 .eq("WAREHOUSE_CODE", queryAttribute.getWarehouseCode())
-                .eq("STATUS", queryAttribute.getBillState())
+                .eq("STATUS", queryAttribute.getBillStatus())
                 .eq("CONTRACT_CODE", queryAttribute.getContractCode())
                 .eq("WORK_CODE",queryAttribute.getWorkCode())
                 .eq("DEAL_CODE",queryAttribute.getDealCode())
@@ -254,6 +260,12 @@ public class InWarehouseBillServiceImpl extends BaseServiceImpl<InWarehouseBillM
         }
 
         return BeanListUtil.copyListProperties(inWarehouseBillEntityList,InWarehouseBillBo.class);
+    }
+
+    @Override
+    public boolean updateInWarehouseBillState(Long id, String state)
+    {
+        return inWarehouseBillMapper.updateInWarehouseBillStatus(id,state);
     }
 
 }

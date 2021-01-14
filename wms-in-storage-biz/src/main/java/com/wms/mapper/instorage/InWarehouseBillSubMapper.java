@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -41,6 +42,27 @@ public interface InWarehouseBillSubMapper extends BaseMapper<InWarehouseBillSubE
      */
     IPage<InWarehouseBillSubBo> getInWarehouseBillSubPageList(@Param("page") Page page, @Param("param") InWarehouseBillSubQueryParam inWarehouseBillSubQueryParam);
 
+    /**
+     * 更新已经入库数量
+     * @param id
+     * @param increaseQuantity
+     * @return
+     */
+    public boolean increaseBillQuantity(Long id, BigDecimal increaseQuantity);
 
+    /**
+     * 查询已经入库数量
+     * @param id
+     * @return
+     */
+    BigDecimal queryAlreadyInQuantityBigDecimal(Long id);
+
+    /**
+     * 更新子单状态
+     * @param id
+     * @param status
+     * @return
+     */
+    public boolean updateState(Long id,String status);
 
 }

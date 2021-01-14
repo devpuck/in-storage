@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,6 +154,35 @@ public class InWarehouseBillSubServiceImpl extends BaseServiceImpl<InWarehouseBi
         }
 
         return BeanListUtil.copyListProperties(inWarehouseBillSubEntityList,InWarehouseBillSubBo.class);
+    }
+
+    @Override
+    public boolean increaseBillQuantity(Long id, BigDecimal increaseQuantity)
+    {
+        boolean result = false;
+        result =  inWarehouseBillSubMapper.increaseBillQuantity(id,increaseQuantity);
+        if(!result)
+        {
+            return result;
+        }
+
+        InWarehouseBillSubBo inWarehouseBillSubBo = inWarehouseBillSubMapper.getInWarehouseBillSubById(id);
+        if(null == inWarehouseBillSubBo)
+        {
+            return result;
+        }
+
+        if(inWarehouseBillSubBo.getAlreadyInQuantity().compareTo(inWarehouseBillSubBo.getQuantity())>=0)
+        {
+            return inWarehouseBillSubMapper.updateState(id,BillState.FINISHED);
+        }
+        return result;
+    }
+
+    @Override
+    public BigDecimal queryAlreadyInQuantity(Long id)
+    {
+        return inWarehouseBillSubMapper.queryAlreadyInQuantityBigDecimal(id);
     }
 
 
